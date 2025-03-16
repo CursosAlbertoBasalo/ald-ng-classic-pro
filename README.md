@@ -2,6 +2,10 @@
 
 [Repositorio](https://github.com/CursosAlbertoBasalo/ald-ng-classic-pro) de ejemplo para el curso de avanzado de Angular clásico para Aldaba
 
+## Assets Board
+
+Ejemplo en carpeta interna [assets-board](./assets-board) desarrollado con [Angular 15.2.11](https://www.npmjs.com/package/@angular/cli/v/15.2.11)
+
 ---
 
 <footer>
