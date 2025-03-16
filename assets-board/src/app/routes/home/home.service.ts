@@ -1,14 +1,14 @@
 import { Injectable } from '@angular/core';
-import { AssetsRepository } from 'src/app/shared/assets.repository';
-import { CategoriesRepository } from 'src/app/shared/categories.repository';
+import { AssetsRepositoryService } from 'src/app/shared/assets-repository.service';
+import { CategoriesRepositoryService } from 'src/app/shared/categories-repository.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class HomeService {
   constructor(
-    private assetsRepository: AssetsRepository,
-    private categoriesRepository: CategoriesRepository
+    private assetsRepository: AssetsRepositoryService,
+    private categoriesRepository: CategoriesRepositoryService
   ) {}
 
   getAssets$() {

@@ -6,7 +6,7 @@ import { Asset, NULL_ASSET } from '../domain/asset.type';
 @Injectable({
   providedIn: 'root',
 })
-export class AssetsRepository {
+export class AssetsRepositoryService {
   private fakeData = [
     {
       id: 1,

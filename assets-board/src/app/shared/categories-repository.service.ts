@@ -5,7 +5,7 @@ import { Category } from '../domain/category.type';
 @Injectable({
   providedIn: 'root',
 })
-export class CategoriesRepository {
+export class CategoriesRepositoryService {
   private fakeData: Category[] = [
     {
       id: 1,
