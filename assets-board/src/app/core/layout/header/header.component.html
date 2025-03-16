@@ -9,7 +9,7 @@
     </ul>
     <ul>
       <li>
-        <a routerLink="/">Currencies</a>
+        <a routerLink="/">{{ totalAmount$ | async | currency }}</a>
       </li>
       <li>
         <a routerLink="/">Stocks</a>
