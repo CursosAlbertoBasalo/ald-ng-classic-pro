@@ -3,7 +3,8 @@
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
-    "prestart": "start chrome http://localhost:4200 -incognito -auto-open-devtools-for-tabs",
+    "brave": "start brave http://localhost:4200 -auto-open-devtools-for-tabs",
+    "chrome": "start chrome http://localhost:4200 -incognito -auto-open-devtools-for-tabs",
     "start": "ng serve",
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
