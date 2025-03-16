@@ -7,6 +7,11 @@ const routes: Routes = [
     loadChildren: () =>
       import('./routes/home/home.module').then((m) => m.HomeModule),
   },
+  {
+    path: 'assets/new',
+    loadChildren: () =>
+      import('./routes/assets/new/new.module').then((m) => m.NewModule),
+  },
 ];
 
 @NgModule({

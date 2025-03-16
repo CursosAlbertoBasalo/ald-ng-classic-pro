@@ -1,0 +1,42 @@
+<form [formGroup]="form" (ngSubmit)="onSubmit()">
+  <fieldset>
+    <legend>New Asset</legend>
+    <div>
+      <label for="name">Name</label>
+      <input
+        formControlName="name"
+        type="text"
+        id="name"
+        placeholder="Enter name"
+      />
+    </div>
+    <div>
+      <label for="category">Category</label>
+      <select id="category" formControlName="category">
+        <option value="" disabled selected>Select a category</option>
+        <option *ngFor="let category of categories" [value]="category.id">
+          {{ category.name }}
+        </option>
+      </select>
+    </div>
+    <div>
+      <label for="quantity">Quantity</label>
+      <input
+        type="number"
+        formControlName="quantity"
+        id="quantity"
+        placeholder="Enter quantity"
+      />
+    </div>
+    <div>
+      <label for="value">Value</label>
+      <input
+        type="number"
+        formControlName="value"
+        id="value"
+        placeholder="Enter value"
+      />
+    </div>
+    <button type="submit" [disabled]="form.invalid">Submit</button>
+  </fieldset>
+</form>

@@ -5,17 +5,13 @@ import { CategoriesRepository } from 'src/app/shared/categories.repository';
 @Injectable({
   providedIn: 'root',
 })
-export class HomeService {
+export class NewAssetService {
   constructor(
-    private assetsRepository: AssetsRepository,
-    private categoriesRepository: CategoriesRepository
+    private assets: AssetsRepository,
+    private categories: CategoriesRepository
   ) {}
 
-  getAssets$() {
-    return this.assetsRepository.getAll$();
-  }
-
   getCategories$() {
-    return this.categoriesRepository.getAll$();
+    return this.categories.getAll$();
   }
 }

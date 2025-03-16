@@ -9,7 +9,7 @@ export type Asset = {
 
 export const NULL_ASSET: Asset = {
   id: 0,
-  name: "",
+  name: '',
   categoryId: 0,
   quantity: 0,
   value: 0,
