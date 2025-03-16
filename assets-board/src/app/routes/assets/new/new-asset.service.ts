@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { Asset } from 'src/app/domain/asset.type';
 import { AssetsRepository } from 'src/app/shared/assets.repository';
 import { CategoriesRepository } from 'src/app/shared/categories.repository';
 
@@ -11,7 +12,11 @@ export class NewAssetService {
     private categories: CategoriesRepository
   ) {}
 
-  getCategories$() {
+  loadCategories$() {
     return this.categories.getAll$();
+  }
+
+  saveAsset(asset: Asset) {
+    this.assets.post$(asset).subscribe();
   }
 }

@@ -70,4 +70,10 @@ export class AssetsRepository {
     const asset = this.fakeData.find((asset) => asset.id === id);
     return of(asset || NULL_ASSET);
   }
+
+  public post$(asset: Asset): Observable<Asset> {
+    const newAsset = { ...asset, id: this.fakeData.length + 1 };
+    this.fakeData.push(newAsset);
+    return of(newAsset).pipe(delay(500));
+  }
 }
