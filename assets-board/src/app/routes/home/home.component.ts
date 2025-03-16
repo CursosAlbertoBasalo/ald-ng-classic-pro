@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
+import { Observable } from 'rxjs';
 import { Asset } from 'src/app/domain/asset.type';
 import { Category } from 'src/app/domain/category.type';
-import { AssetsRepository } from 'src/app/shared/assets.repository';
-import { CategoriesRepositoryService } from 'src/app/shared/categories.repository';
+import { HomeService } from './home.service';
 
 @Component({
   selector: 'lab-home',
@@ -10,25 +10,9 @@ import { CategoriesRepositoryService } from 'src/app/shared/categories.repositor
   styleUrls: ['./home.component.css'],
 })
 export class HomeComponent {
-  public assets: Asset[] = [];
-  public categories: Category[] = [];
+  protected assets$: Observable<Asset[]> = this.homeService.getAssets$();
+  protected categories$: Observable<Category[]> =
+    this.homeService.getCategories$();
 
-  protected categoryName = (asset: Asset) => {
-    const category = this.categories.find(
-      (category) => category.id === asset.categoryId
-    );
-    return category ? category.name : 'Unknown';
-  };
-
-  constructor(
-    private assetsRepository: AssetsRepository,
-    private categoriesRepository: CategoriesRepositoryService
-  ) {
-    this.assetsRepository.getAll$().subscribe((assets) => {
-      this.assets = assets;
-    });
-    this.categoriesRepository.getAll$().subscribe((categories) => {
-      this.categories = categories;
-    });
-  }
+  constructor(private homeService: HomeService) {}
 }
