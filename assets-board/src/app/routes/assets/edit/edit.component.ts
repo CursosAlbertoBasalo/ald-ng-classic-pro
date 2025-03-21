@@ -4,7 +4,6 @@ import { Observable, of } from 'rxjs';
 import { Asset, NULL_ASSET } from 'src/app/domain/asset.type';
 import { EditAssetService } from './edit-asset.service';
 
-
 @Component({
   selector: 'lab-edit',
   templateUrl: './edit.component.html',
@@ -31,10 +30,10 @@ export class EditComponent implements OnInit {
   updateAsset(asset: Asset): void {
     this.editAsset.updateAsset(asset);
   }
-  
+
   deleteAsset(): void {
     if (this.symbol) {
       this.editAsset.deleteAsset(this.symbol);
     }
   }
-} 
+}

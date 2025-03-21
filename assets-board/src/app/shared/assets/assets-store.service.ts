@@ -11,7 +11,9 @@ export class AssetsStoreService {
 
   private actions = new Subject<Action>();
 
-  constructor() {}
+  constructor() {
+    this.dispatch({ type: 'LOAD_ASSETS', payload: null });
+  }
 
   public selectActions$(): Observable<Action> {
     return this.actions.asObservable();
