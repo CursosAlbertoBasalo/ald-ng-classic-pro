@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { AssetsStoreService } from 'src/app/shared/assets-store.service';
+import { AssetsStoreService } from 'src/app/shared/assets/assets-store.service';
 import { CategoriesRepositoryService } from 'src/app/shared/categories-repository.service';
 
 @Injectable({

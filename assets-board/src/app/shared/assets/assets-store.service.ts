@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, map, Observable, Subject } from 'rxjs';
-import { Asset } from '../domain/asset.type';
+import { Asset } from '../../domain/asset.type';
 import { AssetsRepositoryService } from './assets-repository.service';
 
 @Injectable({

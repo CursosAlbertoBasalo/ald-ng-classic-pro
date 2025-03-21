@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Asset } from 'src/app/domain/asset.type';
 import { Category } from 'src/app/domain/category.type';
-import { AssetsStoreService } from 'src/app/shared/assets-store.service';
+import { AssetsStoreService } from 'src/app/shared/assets/assets-store.service';
 import { CategoriesRepositoryService } from 'src/app/shared/categories-repository.service';
 
 @Injectable({
