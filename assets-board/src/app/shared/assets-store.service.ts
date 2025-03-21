@@ -40,9 +40,11 @@ export class AssetsStoreService {
 }
 
 export type Action = {
-  type: string;
+  type: ActionTypes;
   payload: any;
 };
+
+export type ActionTypes = 'LOAD_ASSETS' | 'ADD_ASSET';
 
 @Injectable({
   providedIn: 'root',
