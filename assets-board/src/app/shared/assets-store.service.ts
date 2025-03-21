@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, map, Observable } from 'rxjs';
+import { BehaviorSubject, map, Observable, Subject } from 'rxjs';
 import { Asset } from '../domain/asset.type';
+import { AssetsRepositoryService } from './assets-repository.service';
 
 @Injectable({
   providedIn: 'root',
@@ -8,10 +9,17 @@ import { Asset } from '../domain/asset.type';
 export class AssetsStoreService {
   private assets = new BehaviorSubject<Asset[]>([]);
 
+  private actions = new Subject<Action>();
+
+  constructor() {}
+
+  public selectActions$(): Observable<Action> {
+    return this.actions.asObservable();
+  }
+
   public selectAssets$(): Observable<Asset[]> {
     return this.assets.asObservable();
   }
-
   public selectTotalAmount$(): Observable<number> {
     return this.assets.pipe(
       map((assets) =>
@@ -19,12 +27,44 @@ export class AssetsStoreService {
       )
     );
   }
-
   public dispatchSetAssets(assets: Asset[]): void {
     this.assets.next(assets);
   }
+  public dispatchAddAsset(newAsset: Asset): void {
+    this.assets.next([...this.assets.value, newAsset]);
+  }
 
-  public dispatchAddAsset(asset: Asset): void {
-    this.assets.next([...this.assets.value, asset]);
+  public dispatch(action: Action) {
+    this.actions.next(action);
+  }
+}
+
+export type Action = {
+  type: string;
+  payload: any;
+};
+
+@Injectable({
+  providedIn: 'root',
+})
+export class AssetsEffects {
+  constructor(
+    private assetsStore: AssetsStoreService,
+    private assetsRepository: AssetsRepositoryService
+  ) {
+    this.assetsStore.selectActions$().subscribe((action) => {
+      switch (action.type) {
+        case 'LOAD_ASSETS':
+          this.assetsRepository.getAll$().subscribe((assets) => {
+            this.assetsStore.dispatchSetAssets(assets);
+          });
+          break;
+        case 'ADD_ASSET':
+          this.assetsRepository.post$(action.payload).subscribe((newAsset) => {
+            this.assetsStore.dispatchAddAsset(newAsset);
+          });
+          break;
+      }
+    });
   }
 }

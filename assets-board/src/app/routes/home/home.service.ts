@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { AssetsRepositoryService } from 'src/app/shared/assets-repository.service';
+import { AssetsStoreService } from 'src/app/shared/assets-store.service';
 import { CategoriesRepositoryService } from 'src/app/shared/categories-repository.service';
 
 @Injectable({
@@ -7,12 +7,14 @@ import { CategoriesRepositoryService } from 'src/app/shared/categories-repositor
 })
 export class HomeService {
   constructor(
-    private assetsRepository: AssetsRepositoryService,
+    private assetsStore: AssetsStoreService,
     private categoriesRepository: CategoriesRepositoryService
-  ) {}
+  ) {
+    assetsStore.dispatch({ type: 'LOAD_ASSETS', payload: null });
+  }
 
   getAssets$() {
-    return this.assetsRepository.getAll$();
+    return this.assetsStore.selectAssets$();
   }
 
   getCategories$() {
