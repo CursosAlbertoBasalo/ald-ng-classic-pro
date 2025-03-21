@@ -77,16 +77,17 @@ export class SymbolsRepositoryService {
   }
 
   public getSymbols$(): Observable<CategorySymbolVO[]> {
-    return forkJoin([
+    const symbolRequests: Observable<CategorySymbolVO[]>[] = [
       this.getCryptoSymbols$(),
       this.getRealStateSymbols$(),
       this.getCommoditySymbols$(),
       this.getStockSymbols$(),
       this.getBondsSymbols$(),
       this.getCashSymbols$(),
-    ]).pipe(
-      map((symbolArrays) => symbolArrays.flat()),
-      tap((symbols) => console.log(symbols))
+    ];
+    return forkJoin(symbolRequests).pipe(
+      map((symbolArrays: CategorySymbolVO[][]) => symbolArrays.flat()),
+      tap((symbols: CategorySymbolVO[]) => console.log(symbols))
     );
   }
 

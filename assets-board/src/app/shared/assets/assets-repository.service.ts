@@ -2,13 +2,12 @@ import { Injectable } from '@angular/core';
 
 import {
   catchError,
+  concatMap,
   delay,
   forkJoin,
   map,
   Observable,
   of,
-  switchMap,
-  take,
 } from 'rxjs';
 import { Asset, NULL_ASSET } from '../../domain/asset.type';
 import { AssetValueService } from './asset-value.service';
@@ -80,8 +79,7 @@ export class AssetsRepositoryService {
 
   public getAll$(): Observable<Asset[]> {
     return of(this.fakeData).pipe(
-      take(1), // To avoid infinite loop caused by the dispatching of changes in the store
-      switchMap((assets: Asset[]) => {
+      concatMap((assets: Asset[]) => {
         // Create an Observable updater for each asset to get its updated value
         // ! Pay attention to the type of the assetUpdaters$ is an array of Observables
         const assetUpdaters$: Observable<Asset>[] = assets.map((asset) =>
