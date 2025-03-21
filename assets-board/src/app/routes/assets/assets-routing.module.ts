@@ -7,7 +7,7 @@ const routes: Routes = [
     loadChildren: () => import('./new/new.module').then((m) => m.NewModule),
   },
   {
-    path: 'edit/:symbol',
+    path: 'edit',
     loadChildren: () => import('./edit/edit.module').then((m) => m.EditModule),
   },
 ];
