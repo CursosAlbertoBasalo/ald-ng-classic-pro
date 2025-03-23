@@ -114,7 +114,6 @@ export class NewAssetFormComponent implements OnInit {
   }
 
   protected onSubmit() {
-    const formValue = this.form.value;
     const asset: Asset = {
       id: 0,
       name: this.getValue('name'),
