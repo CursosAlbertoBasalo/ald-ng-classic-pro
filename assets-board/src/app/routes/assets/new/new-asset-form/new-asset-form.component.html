@@ -71,6 +71,9 @@
         [attr.aria-invalid]="isInvalid('value')"
       />
     </div>
+    <div *ngIf="getErrors()?.['maxInvestment']">
+      {{ getErrors()?.['maxInvestment'] }}.
+    </div>
     <button type="submit" [disabled]="form.invalid">Submit</button>
   </fieldset>
 </form>

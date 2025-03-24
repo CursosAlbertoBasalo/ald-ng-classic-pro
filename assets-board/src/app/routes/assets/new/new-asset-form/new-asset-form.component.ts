@@ -1,19 +1,22 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import {
   AbstractControl,
-  AsyncValidatorFn,
+  AbstractControlOptions,
   FormBuilder,
   FormControl,
   FormGroup,
   ValidationErrors,
   Validators,
 } from '@angular/forms';
-import { Observable, map, of } from 'rxjs';
 import { Asset, NULL_ASSET } from 'src/app/domain/asset.type';
 import { CategorySymbolVO } from 'src/app/domain/category-symbol-vo.type';
 import { Category } from 'src/app/domain/category.type';
 import { AssetsStoreService } from 'src/app/shared/assets/assets-store.service';
-import { evenValidator } from 'src/app/shared/custom.validations';
+import {
+  evenValidator,
+  maxInvestmentValidator,
+  symbolValidator,
+} from 'src/app/shared/custom.validations';
 
 /**
  * Presentational component with a form to add a new asset
@@ -32,20 +35,26 @@ export class NewAssetFormComponent implements OnInit {
   protected existingAssetForSymbol: Asset | null = null;
   protected isRealEstate = false;
 
-  protected form: FormGroup = this.fb.group({
-    categoryId: new FormControl(0, [Validators.required]),
-    symbol: [
-      '',
-      {
+  protected form: FormGroup = this.fb.group(
+    {
+      categoryId: new FormControl(0, [Validators.required]),
+      symbol: new FormControl('', {
         validators: [Validators.required],
-        asyncValidators: [this.symbolValidator()],
+        asyncValidators: [symbolValidator(this.assetsStore)],
         updateOn: 'change',
-      },
-    ],
-    name: ['', [Validators.required]],
-    quantity: [1, [Validators.required, Validators.min(0), evenValidator]],
-    value: [1, [Validators.required, Validators.min(0)]],
-  });
+      }),
+      name: new FormControl('', [Validators.required]),
+      quantity: new FormControl(1, [
+        Validators.required,
+        Validators.min(0),
+        evenValidator,
+      ]),
+      value: new FormControl(1, [Validators.required, Validators.min(0)]),
+    },
+    {
+      validators: [maxInvestmentValidator(1000)],
+    } as AbstractControlOptions
+  );
 
   constructor(
     private fb: FormBuilder,
@@ -94,25 +103,6 @@ export class NewAssetFormComponent implements OnInit {
     this.getControl('value').setValue(1);
   }
 
-  private symbolValidator(): AsyncValidatorFn {
-    // return a function that will be called when the symbol field is changed
-    return (control: AbstractControl): Observable<ValidationErrors | null> => {
-      const result = of(null);
-      control.setErrors(null);
-      const selectedSymbol = control.value;
-      this.existingAssetForSymbol = null;
-      if (!selectedSymbol) return result;
-      return this.assetsStore.selectAssetBySymbol$(selectedSymbol).pipe(
-        map((asset) => {
-          if (!asset || !asset.id) return null;
-          this.existingAssetForSymbol = asset;
-          control.setErrors({ symbolExists: true });
-          return { symbolExists: true };
-        })
-      );
-    };
-  }
-
   protected onSubmit() {
     const asset: Asset = {
       id: 0,
@@ -134,7 +124,8 @@ export class NewAssetFormComponent implements OnInit {
     return this.getControl(controlName).invalid;
   }
 
-  protected getErrors(controlName: string): ValidationErrors | null {
+  protected getErrors(controlName?: string): ValidationErrors | null {
+    if (!controlName) return this.form.errors;
     return this.getControl(controlName).errors;
   }
 
