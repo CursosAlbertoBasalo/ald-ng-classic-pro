@@ -3,11 +3,8 @@
   <p><strong>Symbol:</strong> {{ asset.symbol }}</p>
   <p><strong>Category ID:</strong> {{ asset.categoryId }}</p>
   <p><strong>Value:</strong> {{ asset.value | currency }}</p>
-  
-  <details *ngIf="assetDetails$ | async as details">
-    <summary><strong>Click for detailed information</strong></summary>
-    <pre>{{ details | json }}</pre>
-  </details>
+
+  <lab-details [details]="assetDetails$ | async"></lab-details>
 </div>
 <form [formGroup]="form" (ngSubmit)="onSubmit()">
   <fieldset>
@@ -22,7 +19,9 @@
     </div>
     <div class="form-actions">
       <button type="submit" [disabled]="form.invalid">Update</button>
-      <button type="button" class="outline" (click)="onDelete()">Delete Asset</button>
+      <button type="button" class="outline" (click)="onDelete()">
+        Delete Asset
+      </button>
     </div>
   </fieldset>
 </form>
