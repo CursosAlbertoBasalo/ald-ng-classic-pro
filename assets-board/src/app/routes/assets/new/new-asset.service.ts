@@ -29,7 +29,7 @@ export class NewAssetService {
   }
 
   saveAsset(asset: Asset): void {
-    this.assetsStore.dispatchAddAsset(asset);
+    this.assetsStore.reduceAddAsset(asset);
     this.assetsStore.dispatch({ type: 'ADD_ASSET', payload: asset });
   }
 }
