@@ -1,3 +1,9 @@
 <lab-page title="Symbols">
   <lab-search (search)="onSearch($event)"></lab-search>
+  <ul>
+    <li *ngFor="let scVO of symbols$ | async">
+      {{ scVO.symbol }} - {{ scVO.categoryName }} -
+      {{ scVO.value | currency }}
+    </li>
+  </ul>
 </lab-page>

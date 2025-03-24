@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Observable, forkJoin, map, of } from 'rxjs';
+import { Observable, forkJoin, map, of, tap } from 'rxjs';
 import { CategorySymbolVO } from '../domain/category-symbol-vo.type';
 import { Currency, CurrencyType } from '../domain/currency.type';
 import { Quote } from '../domain/quote.type';
@@ -131,7 +131,10 @@ export class SymbolsRepositoryService {
     searchTerm: string
   ): Observable<CategorySymbolVO[]> {
     return this.getSymbols$().pipe(
-      map((symbols) => this.findBySearchTerm(symbols, searchTerm))
+      map((symbols) => this.findBySearchTerm(symbols, searchTerm)),
+      tap((symbols) =>
+        console.log(`${symbols.length} symbols found for ${searchTerm}`)
+      )
     );
   }
 
