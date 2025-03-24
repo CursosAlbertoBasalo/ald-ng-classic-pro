@@ -209,7 +209,7 @@ export class StocksRepositoryService {
       change: 1.45,
       marketCap: 2690000000000,
       timestamp: Date.now(),
-    },  
+    },
   };
 
   /**
@@ -217,6 +217,13 @@ export class StocksRepositoryService {
    */
   public getCompanies$(): Observable<Company[]> {
     return of(this.companies);
+  }
+
+  /**
+   * Get all available quotes
+   */
+  public getQuotes$(): Observable<Quote[]> {
+    return of(Object.values(this.quotes));
   }
 
   /**
