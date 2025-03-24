@@ -1,6 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { BehaviorSubject, map, Observable, switchMap, tap } from 'rxjs';
+import {
+  BehaviorSubject,
+  distinctUntilChanged,
+  map,
+  Observable,
+  switchMap,
+  tap,
+} from 'rxjs';
 import { CategorySymbolVO } from 'src/app/domain/category-symbol-vo.type';
 import { SymbolsRepositoryService } from 'src/app/shared/symbols-repository.service';
 
@@ -11,8 +18,10 @@ import { SymbolsRepositoryService } from 'src/app/shared/symbols-repository.serv
 })
 export class SymbolsComponent implements OnInit {
   private searchTerm$ = new BehaviorSubject<string>('');
+  protected initialSearchTerm = 'stocks';
 
   protected symbols$: Observable<CategorySymbolVO[]> = this.searchTerm$.pipe(
+    distinctUntilChanged(),
     tap((term) => this.router.navigate([], { queryParams: { search: term } })),
     switchMap((term) => this.symbolsRepository.getSymbolsBySearchTerm$(term))
   );
@@ -30,6 +39,7 @@ export class SymbolsComponent implements OnInit {
     this.activatedRoute.queryParams
       .pipe(
         map((params) => params['search'] || ''),
+        tap((term) => (this.initialSearchTerm = term)),
         tap((term) => this.searchTerm$.next(term))
       )
       .subscribe();

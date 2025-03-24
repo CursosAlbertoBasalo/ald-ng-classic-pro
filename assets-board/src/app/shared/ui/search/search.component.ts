@@ -2,6 +2,7 @@ import {
   Component,
   ElementRef,
   EventEmitter,
+  Input,
   Output,
   ViewChild,
 } from '@angular/core';
@@ -20,6 +21,7 @@ import {
   styleUrls: ['./search.component.css'],
 })
 export class SearchComponent {
+  @Input() initialSearchTerm: string = '';
   @Output() search = new EventEmitter<string>();
 
   @ViewChild('searchInput') searchInput!: ElementRef<HTMLInputElement>;
