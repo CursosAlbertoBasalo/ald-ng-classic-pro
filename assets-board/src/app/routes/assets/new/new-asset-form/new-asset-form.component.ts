@@ -96,11 +96,12 @@ export class NewAssetFormComponent implements OnInit {
     if (!symbol) return;
     if (this.isRealEstate) return;
     // For non-real estate, look up symbol info and populate fields
-    const symbolObj = this.categorySymbols.find((s) => s.symbol === symbol);
-    if (!symbolObj) return;
-    this.getControl('name').setValue(symbolObj.symbol);
-    // Value would typically come from an API, using placeholder value for now
-    this.getControl('value').setValue(1);
+    const categorySymbolVO = this.categorySymbols.find(
+      (s) => s.symbol === symbol
+    );
+    if (!categorySymbolVO) return;
+    this.getControl('name').setValue(categorySymbolVO.symbol);
+    this.getControl('value').setValue(categorySymbolVO.value);
   }
 
   protected onSubmit() {
