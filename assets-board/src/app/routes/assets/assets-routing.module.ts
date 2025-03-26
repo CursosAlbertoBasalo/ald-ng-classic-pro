@@ -4,11 +4,13 @@ import { RouterModule, Routes } from '@angular/router';
 const routes: Routes = [
   {
     path: 'new',
-    loadChildren: () => import('./new/new.module').then((m) => m.NewModule),
+    loadComponent: () =>
+      import('./new/new.component').then((m) => m.NewComponent),
   },
   {
-    path: 'edit',
-    loadChildren: () => import('./edit/edit.module').then((m) => m.EditModule),
+    path: 'edit/:symbol',
+    loadComponent: () =>
+      import('./edit/edit.component').then((m) => m.EditComponent),
   },
 ];
 
