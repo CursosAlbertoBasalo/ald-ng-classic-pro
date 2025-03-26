@@ -10,7 +10,7 @@ import {
   symbolValidator,
 } from 'src/app/shared/custom.validations';
 import { RouterLink } from '@angular/router';
-import { NgFor, NgIf } from '@angular/common';
+
 
 /**
  * Presentational component with a form to add a new asset
@@ -21,11 +21,9 @@ import { NgFor, NgIf } from '@angular/common';
     styleUrls: ['./new-asset-form.component.css'],
     standalone: true,
     imports: [
-        ReactiveFormsModule,
-        NgFor,
-        NgIf,
-        RouterLink,
-    ],
+    ReactiveFormsModule,
+    RouterLink
+],
 })
 export class NewAssetFormComponent implements OnInit {
   @Input() public categories: Category[] = [];

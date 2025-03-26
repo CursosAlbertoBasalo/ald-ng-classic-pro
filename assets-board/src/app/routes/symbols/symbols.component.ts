@@ -1,4 +1,4 @@
-import { AsyncPipe, CurrencyPipe, NgFor, NgIf } from '@angular/common';
+import { AsyncPipe, CurrencyPipe } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import {
@@ -23,11 +23,9 @@ import { SearchComponent } from '../../shared/ui/search/search.component';
   imports: [
     PageComponent,
     SearchComponent,
-    NgIf,
-    NgFor,
     AsyncPipe,
-    CurrencyPipe,
-  ],
+    CurrencyPipe
+],
 })
 export default class SymbolsComponent implements OnInit {
   private searchTerm$ = new BehaviorSubject<string>('');

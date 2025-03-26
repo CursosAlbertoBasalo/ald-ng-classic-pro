@@ -1,4 +1,4 @@
-<ng-container *ngIf="asset$ | async as asset">
+@if (asset$ | async; as asset) {
   <lab-page title="Edit Asset" [subtitle]="asset.name">
     <lab-edit-asset-form
       [asset]="asset"
@@ -6,4 +6,4 @@
       (delete)="deleteAsset()"
     ></lab-edit-asset-form>
   </lab-page>
-</ng-container>
+}
