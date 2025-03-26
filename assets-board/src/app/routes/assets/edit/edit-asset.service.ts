@@ -16,7 +16,9 @@ export class EditAssetService {
     private assetsStore: AssetsStoreService,
     private categoriesRepository: CategoriesRepositoryService,
     private symbolsRepository: SymbolsRepositoryService
-  ) {}
+  ) {
+    this.assetsStore.dispatch({ type: 'LOAD_ASSETS', payload: null });
+  }
 
   loadAsset$(symbol: string): Observable<Asset> {
     return this.assetsStore.selectAssetBySymbol$(symbol);

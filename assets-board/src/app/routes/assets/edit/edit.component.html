@@ -1,11 +1,9 @@
-<lab-page
-  *ngIf="asset$ | async as asset"
-  title="Edit Asset"
-  subtitle="{{ asset.name }}"
->
-  <lab-edit-asset-form
-    [asset]="asset"
-    (update)="updateAsset($event)"
-    (delete)="deleteAsset()"
-  ></lab-edit-asset-form>
-</lab-page>
+<ng-container *ngIf="asset$ | async as asset">
+  <lab-page title="Edit Asset" [subtitle]="asset.name">
+    <lab-edit-asset-form
+      [asset]="asset"
+      (update)="updateAsset($event)"
+      (delete)="deleteAsset()"
+    ></lab-edit-asset-form>
+  </lab-page>
+</ng-container>

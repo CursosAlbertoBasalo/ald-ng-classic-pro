@@ -9,10 +9,12 @@
     </ul>
     <ul>
       <li>
-        <a routerLink="/">{{ totalAmount$ | async | currency }}</a>
+        <a routerLink="/" aria-label="Total amount">{{
+          totalAmount$ | async | currency
+        }}</a>
       </li>
       <li>
-        <a routerLink="/symbols">Symbols</a>
+        <a routerLink="/symbols" aria-label="Symbols">Symbols</a>
       </li>
       <li>
         <lab-theme-toggle></lab-theme-toggle>

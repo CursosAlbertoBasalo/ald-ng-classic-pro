@@ -3,6 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import {
   BehaviorSubject,
   distinctUntilChanged,
+  filter,
   map,
   Observable,
   switchMap,
@@ -18,30 +19,37 @@ import { SymbolsRepositoryService } from 'src/app/shared/symbols-repository.serv
 })
 export class SymbolsComponent implements OnInit {
   private searchTerm$ = new BehaviorSubject<string>('');
-  protected initialSearchTerm = 'stocks';
 
   protected symbols$: Observable<CategorySymbolVO[]> = this.searchTerm$.pipe(
     distinctUntilChanged(),
-    tap((term) => this.router.navigate([], { queryParams: { search: term } })),
-    switchMap((term) => this.symbolsRepository.getSymbolsBySearchTerm$(term))
+    tap((searchTerm) =>
+      this.router.navigate([], { queryParams: { search: searchTerm } })
+    ),
+    switchMap((searchTerm) =>
+      this.symbolsRepository.getSymbolsBySearchTerm$(searchTerm)
+    )
   );
+
+  protected paramSearchTerm = '';
 
   constructor(
     private symbolsRepository: SymbolsRepositoryService,
     private router: Router,
-    private activatedRoute: ActivatedRoute
+    private route: ActivatedRoute
   ) {}
 
-  onSearch(search: string) {
-    this.searchTerm$.next(search);
-  }
   ngOnInit(): void {
-    this.activatedRoute.queryParams
+    this.route.queryParams
       .pipe(
         map((params) => params['search'] || ''),
-        tap((term) => (this.initialSearchTerm = term)),
-        tap((term) => this.searchTerm$.next(term))
+        filter((searchTerm) => searchTerm !== ''),
+        tap((searchTerm) => (this.paramSearchTerm = searchTerm)),
+        tap((searchTerm) => this.searchTerm$.next(searchTerm))
       )
       .subscribe();
+  }
+
+  onSearch(value: string) {
+    this.searchTerm$.next(value);
   }
 }

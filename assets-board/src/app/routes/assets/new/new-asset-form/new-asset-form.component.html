@@ -8,7 +8,7 @@
         [attr.aria-invalid]="isInvalid('categoryId')"
       >
         <option value="0" disabled selected>Select a category</option>
-        <option *ngFor="let category of categories" [ngValue]="category.id">
+        <option *ngFor="let category of categories" [value]="category.id">
           {{ category.name }}
         </option>
       </select>
@@ -54,10 +54,11 @@
         id="quantity"
         placeholder="Enter quantity"
         [attr.aria-invalid]="isInvalid('quantity')"
+        [attr.aria-describedby]="getErrors('quantity')?.['even'] ? 'even-error' : null"
       />
-      <small *ngIf="isInvalid('quantity')">{{
-        getErrors("quantity") | json
-      }}</small>
+      <div *ngIf="getErrors('quantity')?.['even']" id="even-error">
+        Quantity must be an even number
+      </div>
     </div>
     <div>
       <label for="value">Value</label>
@@ -71,7 +72,7 @@
       />
     </div>
     <div *ngIf="getErrors()?.['maxInvestment']">
-      {{ getErrors()?.['maxInvestment'] }}.
+      Investment cannot exceed 1.000.000$
     </div>
     <button type="submit" [disabled]="form.invalid">Submit</button>
   </fieldset>

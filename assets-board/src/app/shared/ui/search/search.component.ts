@@ -6,14 +6,7 @@ import {
   Output,
   ViewChild,
 } from '@angular/core';
-import {
-  debounceTime,
-  distinctUntilChanged,
-  filter,
-  fromEvent,
-  map,
-  tap,
-} from 'rxjs';
+import { debounceTime, filter, fromEvent, map, tap } from 'rxjs';
 
 @Component({
   selector: 'lab-search',
@@ -21,20 +14,23 @@ import {
   styleUrls: ['./search.component.css'],
 })
 export class SearchComponent {
-  @Input() initialSearchTerm: string = '';
-  @Output() search = new EventEmitter<string>();
-
+  @Input() initialTerm = '';
+  @Output() search: EventEmitter<string> = new EventEmitter();
   @ViewChild('searchInput') searchInput!: ElementRef<HTMLInputElement>;
 
-  ngAfterViewInit(): void {
-    const inputEl = this.searchInput.nativeElement;
-    fromEvent(inputEl, 'input')
+  ngAfterViewInit() {
+    const inputEmitter$ = fromEvent(
+      this.searchInput.nativeElement,
+      'input'
+    ).pipe(
+      debounceTime(300),
+      map((event: Event) => (event.target as HTMLInputElement).value)
+    );
+
+    inputEmitter$
       .pipe(
-        debounceTime(300),
-        map((event: Event) => (event.target as HTMLInputElement).value),
-        filter((term) => term.length != 1),
-        distinctUntilChanged(),
-        tap((term) => this.search.emit(term))
+        filter((value: string) => value.length != 1),
+        tap((value: string) => this.search.emit(value))
       )
       .subscribe();
   }

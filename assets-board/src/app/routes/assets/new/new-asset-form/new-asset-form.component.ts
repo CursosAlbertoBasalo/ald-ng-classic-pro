@@ -52,7 +52,7 @@ export class NewAssetFormComponent implements OnInit {
       value: new FormControl(1, [Validators.required, Validators.min(0)]),
     },
     {
-      validators: [maxInvestmentValidator(1000)],
+      validators: [maxInvestmentValidator(1000000)],
     } as AbstractControlOptions
   );
 
