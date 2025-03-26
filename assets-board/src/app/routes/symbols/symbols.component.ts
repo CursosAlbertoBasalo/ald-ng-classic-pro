@@ -11,11 +11,23 @@ import {
 } from 'rxjs';
 import { CategorySymbolVO } from 'src/app/domain/category-symbol-vo.type';
 import { SymbolsRepositoryService } from 'src/app/shared/symbols-repository.service';
+import { NgIf, NgFor, AsyncPipe, CurrencyPipe } from '@angular/common';
+import { SearchComponent } from '../../shared/ui/search/search.component';
+import { PageComponent } from '../../shared/ui/page/page.component';
 
 @Component({
-  selector: 'lab-symbols',
-  templateUrl: './symbols.component.html',
-  styleUrls: ['./symbols.component.css'],
+    selector: 'lab-symbols',
+    templateUrl: './symbols.component.html',
+    styleUrls: ['./symbols.component.css'],
+    standalone: true,
+    imports: [
+        PageComponent,
+        SearchComponent,
+        NgIf,
+        NgFor,
+        AsyncPipe,
+        CurrencyPipe,
+    ],
 })
 export class SymbolsComponent implements OnInit {
   private searchTerm$ = new BehaviorSubject<string>('');

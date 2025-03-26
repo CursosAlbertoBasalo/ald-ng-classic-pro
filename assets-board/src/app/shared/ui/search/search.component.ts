@@ -9,9 +9,10 @@ import {
 import { debounceTime, filter, fromEvent, map, tap } from 'rxjs';
 
 @Component({
-  selector: 'lab-search',
-  templateUrl: './search.component.html',
-  styleUrls: ['./search.component.css'],
+    selector: 'lab-search',
+    templateUrl: './search.component.html',
+    styleUrls: ['./search.component.css'],
+    standalone: true,
 })
 export class SearchComponent {
   @Input() initialTerm = '';

@@ -7,18 +7,16 @@ import { SearchComponent } from './search/search.component';
 
 
 @NgModule({
-  declarations: [
-    PageComponent,
-    DetailsComponent,
-    SearchComponent
-  ],
-  imports: [
-    CommonModule
-  ],
-  exports: [
-    PageComponent,
-    DetailsComponent,
-    SearchComponent
-  ]
+    imports: [
+        CommonModule,
+        PageComponent,
+        DetailsComponent,
+        SearchComponent
+    ],
+    exports: [
+        PageComponent,
+        DetailsComponent,
+        SearchComponent
+    ]
 })
 export class UiModule { }
