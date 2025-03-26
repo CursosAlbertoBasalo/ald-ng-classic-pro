@@ -10,7 +10,7 @@ const routes: Routes = [
   {
     path: 'assets',
     loadChildren: () =>
-      import('./routes/assets/assets.module').then((m) => m.AssetsModule),
+      import('./routes/assets/assets-routing').then((m) => m.ASSETS_ROUTES),
   },
   {
     path: 'symbols',
