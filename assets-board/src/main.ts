@@ -1,6 +1,7 @@
 import { APP_INITIALIZER, importProvidersFrom } from '@angular/core';
 import { BrowserModule, bootstrapApplication } from '@angular/platform-browser';
-import { AppRoutingModule } from './app/app-routing.module';
+import { provideRouter } from '@angular/router';
+import { APP_ROUTES } from './app/app-routing';
 import { AppComponent } from './app/app.component';
 import { AssetsEffects } from './app/shared/assets/asset-effects.service';
 
@@ -10,7 +11,8 @@ function configAssetsEffects(assetsEffects: AssetsEffects) {
 
 bootstrapApplication(AppComponent, {
   providers: [
-    importProvidersFrom(BrowserModule, AppRoutingModule),
+    importProvidersFrom(BrowserModule),
+    provideRouter(APP_ROUTES),
     {
       provide: APP_INITIALIZER,
       useFactory: configAssetsEffects,

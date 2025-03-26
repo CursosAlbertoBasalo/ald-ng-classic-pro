@@ -1,7 +1,6 @@
-import { NgModule } from '@angular/core';
-import { RouterModule, Routes } from '@angular/router';
+import { Routes } from '@angular/router';
 
-const routes: Routes = [
+export const APP_ROUTES: Routes = [
   {
     path: '',
     loadComponent: () =>
@@ -17,9 +16,3 @@ const routes: Routes = [
     loadComponent: () => import('./routes/symbols/symbols.component'),
   },
 ];
-
-@NgModule({
-  imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule],
-})
-export class AppRoutingModule {}
