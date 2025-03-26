@@ -4,15 +4,21 @@ import { RouterModule, Routes } from '@angular/router';
 const routes: Routes = [
   {
     path: '',
-    loadChildren: () =>
-      import('./routes/home/home.module').then((m) => m.HomeModule),
+    loadComponent: () =>
+      import('./routes/home/home.component').then((m) => m.HomeComponent),
   },
   {
     path: 'assets',
     loadChildren: () =>
       import('./routes/assets/assets.module').then((m) => m.AssetsModule),
   },
-  { path: 'symbols', loadChildren: () => import('./routes/symbols/symbols.module').then(m => m.SymbolsModule) },
+  {
+    path: 'symbols',
+    loadComponent: () =>
+      import('./routes/symbols/symbols.component').then(
+        (m) => m.SymbolsComponent
+      ),
+  },
 ];
 
 @NgModule({
