@@ -1,24 +1,34 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
+import { AsyncPipe, CurrencyPipe } from '@angular/common';
+import {
+  Component,
+  EventEmitter,
+  inject,
+  Input,
+  OnInit,
+  Output,
+} from '@angular/core';
+import {
+  FormBuilder,
+  FormGroup,
+  ReactiveFormsModule,
+  Validators,
+} from '@angular/forms';
 import { Observable, of } from 'rxjs';
 import { Asset } from 'src/app/domain/asset.type';
 import { AssetDetailsService } from 'src/app/shared/assets/asset-details.service';
-import { AsyncPipe, CurrencyPipe } from '@angular/common';
 import { DetailsComponent } from '../../../../shared/ui/details/details.component';
 
 @Component({
-    selector: 'lab-edit-asset-form',
-    templateUrl: './edit-asset-form.component.html',
-    styleUrls: ['./edit-asset-form.component.css'],
-    standalone: true,
-    imports: [
-        DetailsComponent,
-        ReactiveFormsModule,
-        AsyncPipe,
-        CurrencyPipe,
-    ],
+  selector: 'lab-edit-asset-form',
+  templateUrl: './edit-asset-form.component.html',
+  styleUrls: ['./edit-asset-form.component.css'],
+  standalone: true,
+  imports: [DetailsComponent, ReactiveFormsModule, AsyncPipe, CurrencyPipe],
 })
 export class EditAssetFormComponent implements OnInit {
+  private fb = inject(FormBuilder);
+  private assetDetailsService = inject(AssetDetailsService);
+
   @Input() public asset!: Asset;
   @Output() public update: EventEmitter<Asset> = new EventEmitter();
   @Output() public delete: EventEmitter<void> = new EventEmitter();
@@ -28,11 +38,6 @@ export class EditAssetFormComponent implements OnInit {
   });
 
   protected assetDetails$: Observable<any> = of(null);
-
-  constructor(
-    private fb: FormBuilder,
-    private assetDetailsService: AssetDetailsService
-  ) {}
 
   ngOnInit() {
     if (!this.asset) return;

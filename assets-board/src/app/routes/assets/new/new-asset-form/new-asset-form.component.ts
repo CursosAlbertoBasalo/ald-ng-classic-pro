@@ -1,5 +1,22 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { AbstractControl, AbstractControlOptions, FormBuilder, FormControl, FormGroup, ValidationErrors, Validators, ReactiveFormsModule } from '@angular/forms';
+import {
+  Component,
+  EventEmitter,
+  inject,
+  Input,
+  OnInit,
+  Output,
+} from '@angular/core';
+import {
+  AbstractControl,
+  AbstractControlOptions,
+  FormBuilder,
+  FormControl,
+  FormGroup,
+  ReactiveFormsModule,
+  ValidationErrors,
+  Validators,
+} from '@angular/forms';
+import { RouterLink } from '@angular/router';
 import { Asset, NULL_ASSET } from 'src/app/domain/asset.type';
 import { CategorySymbolVO } from 'src/app/domain/category-symbol-vo.type';
 import { Category } from 'src/app/domain/category.type';
@@ -9,23 +26,21 @@ import {
   maxInvestmentValidator,
   symbolValidator,
 } from 'src/app/shared/custom.validations';
-import { RouterLink } from '@angular/router';
-
 
 /**
  * Presentational component with a form to add a new asset
  */
 @Component({
-    selector: 'lab-new-asset-form',
-    templateUrl: './new-asset-form.component.html',
-    styleUrls: ['./new-asset-form.component.css'],
-    standalone: true,
-    imports: [
-    ReactiveFormsModule,
-    RouterLink
-],
+  selector: 'lab-new-asset-form',
+  templateUrl: './new-asset-form.component.html',
+  styleUrls: ['./new-asset-form.component.css'],
+  standalone: true,
+  imports: [ReactiveFormsModule, RouterLink],
 })
 export class NewAssetFormComponent implements OnInit {
+  private fb = inject(FormBuilder);
+  private assetsStore = inject(AssetsStoreService);
+
   @Input() public categories: Category[] = [];
   @Input() public categoriesSymbols: CategorySymbolVO[] = [];
   @Output() public save: EventEmitter<Asset> = new EventEmitter();
@@ -54,11 +69,6 @@ export class NewAssetFormComponent implements OnInit {
       validators: [maxInvestmentValidator(1000000)],
     } as AbstractControlOptions
   );
-
-  constructor(
-    private fb: FormBuilder,
-    private assetsStore: AssetsStoreService
-  ) {}
 
   ngOnInit() {
     this.getControl('categoryId').valueChanges.subscribe((categoryId) =>

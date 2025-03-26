@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
 import { AssetsStoreService } from 'src/app/shared/assets/assets-store.service';
 import { CategoriesRepositoryService } from 'src/app/shared/categories-repository.service';
 
@@ -6,11 +6,11 @@ import { CategoriesRepositoryService } from 'src/app/shared/categories-repositor
   providedIn: 'root',
 })
 export class HomeService {
-  constructor(
-    private assetsStore: AssetsStoreService,
-    private categoriesRepository: CategoriesRepositoryService
-  ) {
-    assetsStore.dispatch({ type: 'LOAD_ASSETS', payload: null });
+  private assetsStore = inject(AssetsStoreService);
+  private categoriesRepository = inject(CategoriesRepositoryService);
+
+  constructor() {
+    this.assetsStore.dispatch({ type: 'LOAD_ASSETS', payload: null });
   }
 
   getAssets$() {

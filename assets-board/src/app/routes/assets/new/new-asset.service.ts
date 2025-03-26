@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Asset } from 'src/app/domain/asset.type';
 import { CategorySymbolVO } from 'src/app/domain/category-symbol-vo.type';
@@ -11,11 +11,9 @@ import { SymbolsRepositoryService } from 'src/app/shared/symbols-repository.serv
   providedIn: 'root',
 })
 export class NewAssetService {
-  constructor(
-    private categories: CategoriesRepositoryService,
-    private assetsStore: AssetsStoreService,
-    private symbols: SymbolsRepositoryService
-  ) {}
+  private categories = inject(CategoriesRepositoryService);
+  private assetsStore = inject(AssetsStoreService);
+  private symbols = inject(SymbolsRepositoryService);
 
   loadCategories$(): Observable<Category[]> {
     return this.categories.getAll$();

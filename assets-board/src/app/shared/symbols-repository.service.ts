@@ -1,5 +1,5 @@
-import { Injectable } from '@angular/core';
-import { Observable, forkJoin, map, of, tap } from 'rxjs';
+import { inject, Injectable } from '@angular/core';
+import { forkJoin, map, Observable, of, tap } from 'rxjs';
 import { CategorySymbolVO } from '../domain/category-symbol-vo.type';
 import { Currency, CurrencyType } from '../domain/currency.type';
 import { Quote } from '../domain/quote.type';
@@ -11,11 +11,9 @@ import { StocksRepositoryService } from './stocks.repository.service';
   providedIn: 'root',
 })
 export class SymbolsRepositoryService {
-  constructor(
-    private commoditiesRepository: CommoditiesRepositoryService,
-    private currenciesRepository: CurrenciesRepositoryService,
-    private stocksRepository: StocksRepositoryService
-  ) {}
+  private commoditiesRepository = inject(CommoditiesRepositoryService);
+  private currenciesRepository = inject(CurrenciesRepositoryService);
+  private stocksRepository = inject(StocksRepositoryService);
 
   private getCryptoSymbols$(): Observable<CategorySymbolVO[]> {
     return this.currenciesRepository.getAll$().pipe(

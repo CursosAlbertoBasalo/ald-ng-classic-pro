@@ -1,5 +1,5 @@
 import { AsyncPipe, CurrencyPipe } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import {
   BehaviorSubject,
@@ -20,14 +20,12 @@ import { SearchComponent } from '../../shared/ui/search/search.component';
   templateUrl: './symbols.component.html',
   styleUrls: ['./symbols.component.css'],
   standalone: true,
-  imports: [
-    PageComponent,
-    SearchComponent,
-    AsyncPipe,
-    CurrencyPipe
-],
+  imports: [PageComponent, SearchComponent, AsyncPipe, CurrencyPipe],
 })
 export default class SymbolsComponent implements OnInit {
+  private symbolsRepository = inject(SymbolsRepositoryService);
+  private router = inject(Router);
+  private route = inject(ActivatedRoute);
   private searchTerm$ = new BehaviorSubject<string>('');
 
   protected symbols$: Observable<CategorySymbolVO[]> = this.searchTerm$.pipe(
@@ -41,12 +39,6 @@ export default class SymbolsComponent implements OnInit {
   );
 
   protected paramSearchTerm = '';
-
-  constructor(
-    private symbolsRepository: SymbolsRepositoryService,
-    private router: Router,
-    private route: ActivatedRoute
-  ) {}
 
   ngOnInit(): void {
     this.route.queryParams

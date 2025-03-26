@@ -1,5 +1,5 @@
-import { APP_INITIALIZER, importProvidersFrom } from '@angular/core';
-import { BrowserModule, bootstrapApplication } from '@angular/platform-browser';
+import { APP_INITIALIZER } from '@angular/core';
+import { bootstrapApplication } from '@angular/platform-browser';
 import { provideRouter } from '@angular/router';
 import { APP_ROUTES } from './app/app-routing';
 import { AppComponent } from './app/app.component';
@@ -11,7 +11,6 @@ function configAssetsEffects(assetsEffects: AssetsEffects) {
 
 bootstrapApplication(AppComponent, {
   providers: [
-    importProvidersFrom(BrowserModule),
     provideRouter(APP_ROUTES),
     {
       provide: APP_INITIALIZER,
