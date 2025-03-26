@@ -14,10 +14,7 @@ const routes: Routes = [
   },
   {
     path: 'symbols',
-    loadComponent: () =>
-      import('./routes/symbols/symbols.component').then(
-        (m) => m.SymbolsComponent
-      ),
+    loadComponent: () => import('./routes/symbols/symbols.component'),
   },
 ];
 

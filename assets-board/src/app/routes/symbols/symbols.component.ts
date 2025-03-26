@@ -1,3 +1,4 @@
+import { AsyncPipe, CurrencyPipe, NgFor, NgIf } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import {
@@ -11,25 +12,24 @@ import {
 } from 'rxjs';
 import { CategorySymbolVO } from 'src/app/domain/category-symbol-vo.type';
 import { SymbolsRepositoryService } from 'src/app/shared/symbols-repository.service';
-import { NgIf, NgFor, AsyncPipe, CurrencyPipe } from '@angular/common';
-import { SearchComponent } from '../../shared/ui/search/search.component';
 import { PageComponent } from '../../shared/ui/page/page.component';
+import { SearchComponent } from '../../shared/ui/search/search.component';
 
 @Component({
-    selector: 'lab-symbols',
-    templateUrl: './symbols.component.html',
-    styleUrls: ['./symbols.component.css'],
-    standalone: true,
-    imports: [
-        PageComponent,
-        SearchComponent,
-        NgIf,
-        NgFor,
-        AsyncPipe,
-        CurrencyPipe,
-    ],
+  selector: 'lab-symbols',
+  templateUrl: './symbols.component.html',
+  styleUrls: ['./symbols.component.css'],
+  standalone: true,
+  imports: [
+    PageComponent,
+    SearchComponent,
+    NgIf,
+    NgFor,
+    AsyncPipe,
+    CurrencyPipe,
+  ],
 })
-export class SymbolsComponent implements OnInit {
+export default class SymbolsComponent implements OnInit {
   private searchTerm$ = new BehaviorSubject<string>('');
 
   protected symbols$: Observable<CategorySymbolVO[]> = this.searchTerm$.pipe(
