@@ -1,11 +1,8 @@
 import {
   Component,
-  EventEmitter,
   inject,
   input,
-  OnInit,
-  Output,
-} from '@angular/core';
+  OnInit, output } from '@angular/core';
 import {
   AbstractControl,
   AbstractControlOptions,
@@ -43,7 +40,7 @@ export class NewAssetFormComponent implements OnInit {
 
   public categories = input<Category[]>([]);
   public categoriesSymbols = input<CategorySymbolVO[]>([]);
-  @Output() public save: EventEmitter<Asset> = new EventEmitter();
+  public save = output<Asset>();
 
   protected categorySymbols: CategorySymbolVO[] = [];
   protected existingAssetForSymbol: Asset | null = null;

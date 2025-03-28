@@ -1,12 +1,9 @@
 import { AsyncPipe, CurrencyPipe } from '@angular/common';
 import {
   Component,
-  EventEmitter,
   inject,
   input,
-  OnInit,
-  Output,
-} from '@angular/core';
+  OnInit, output } from '@angular/core';
 import {
   FormBuilder,
   FormGroup,
@@ -31,8 +28,8 @@ export class EditAssetFormComponent implements OnInit {
 
   public asset = input.required<Asset>();
 
-  @Output() public update: EventEmitter<Asset> = new EventEmitter();
-  @Output() public delete: EventEmitter<void> = new EventEmitter();
+  public update = output<Asset>();
+  public delete = output<void>();
 
   protected form: FormGroup = this.fb.group({
     quantity: [0, [Validators.required, Validators.min(0)]],

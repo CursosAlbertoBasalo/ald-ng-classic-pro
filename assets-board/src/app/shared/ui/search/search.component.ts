@@ -1,11 +1,4 @@
-import {
-  Component,
-  ElementRef,
-  EventEmitter,
-  Output,
-  ViewChild,
-  input,
-} from '@angular/core';
+import { Component, ElementRef, ViewChild, input, output } from '@angular/core';
 import { debounceTime, filter, fromEvent, map, tap } from 'rxjs';
 
 @Component({
@@ -17,7 +10,7 @@ import { debounceTime, filter, fromEvent, map, tap } from 'rxjs';
 export class SearchComponent {
   public initialTerm = input<string>('');
 
-  @Output() search: EventEmitter<string> = new EventEmitter();
+  public search = output<string>();
   @ViewChild('searchInput') searchInput!: ElementRef<HTMLInputElement>;
 
   ngAfterViewInit() {
