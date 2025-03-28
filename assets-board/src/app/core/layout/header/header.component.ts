@@ -2,7 +2,7 @@ import { AsyncPipe, CurrencyPipe } from '@angular/common';
 import { Component, inject } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { AssetsStoreService } from 'src/app/shared/assets/assets-store.service';
-import { ThemeToggleComponent } from '../theme-toggle/theme-toggle.component';
+import { ThemeToggleComponent } from './theme-toggle.component';
 
 @Component({
   selector: 'lab-header',

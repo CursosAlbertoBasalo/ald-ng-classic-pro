@@ -1,12 +1,15 @@
 import { Component } from '@angular/core';
 
-
 @Component({
-    selector: 'lab-theme-toggle',
-    templateUrl: './theme-toggle.component.html',
-    styleUrls: ['./theme-toggle.component.css'],
-    standalone: true,
-    imports: [],
+  selector: 'lab-theme-toggle',
+  template: `
+    <a aria-label="Toggle theme">
+      <span (click)="toggleTheme()">
+        @if (theme == 'light') { 🔳 } @if (theme == 'dark') { 🔲 }
+      </span>
+    </a>
+  `,
+  standalone: true,
 })
 export class ThemeToggleComponent {
   protected theme = localStorage.getItem('theme') || 'light';
