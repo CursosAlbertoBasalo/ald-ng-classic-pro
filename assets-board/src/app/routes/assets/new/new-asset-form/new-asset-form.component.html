@@ -8,7 +8,7 @@
         [attr.aria-invalid]="isInvalid('categoryId')"
         >
         <option value="0" disabled selected>Select a category</option>
-        @for (category of categories; track category) {
+        @for (category of categories(); track category) {
           <option [value]="category.id">
             {{ category.name }}
           </option>

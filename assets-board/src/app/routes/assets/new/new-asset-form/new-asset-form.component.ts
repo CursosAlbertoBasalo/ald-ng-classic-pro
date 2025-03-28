@@ -2,7 +2,7 @@ import {
   Component,
   EventEmitter,
   inject,
-  Input,
+  input,
   OnInit,
   Output,
 } from '@angular/core';
@@ -41,8 +41,8 @@ export class NewAssetFormComponent implements OnInit {
   private fb = inject(FormBuilder);
   private assetsStore = inject(AssetsStoreService);
 
-  @Input() public categories: Category[] = [];
-  @Input() public categoriesSymbols: CategorySymbolVO[] = [];
+  public categories = input<Category[]>([]);
+  public categoriesSymbols = input<CategorySymbolVO[]>([]);
   @Output() public save: EventEmitter<Asset> = new EventEmitter();
 
   protected categorySymbols: CategorySymbolVO[] = [];
@@ -82,7 +82,7 @@ export class NewAssetFormComponent implements OnInit {
 
   private onCategoryChange(categoryId: number): void {
     const numericCategoryId = Number(categoryId);
-    this.categorySymbols = this.categoriesSymbols.filter(
+    this.categorySymbols = this.categoriesSymbols().filter(
       (symbol) => symbol.categoryId === numericCategoryId
     );
     this.isRealEstate = numericCategoryId === 2; // Flat/Real Estate category

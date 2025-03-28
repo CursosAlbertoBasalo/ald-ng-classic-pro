@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, input } from '@angular/core';
 import { JsonPipe } from '@angular/common';
 
 @Component({
@@ -9,5 +9,5 @@ import { JsonPipe } from '@angular/common';
     imports: [JsonPipe],
 })
 export class DetailsComponent {
-  @Input() details: Record<string, string> = {};
+  details = input<Record<string, string>>({});
 }

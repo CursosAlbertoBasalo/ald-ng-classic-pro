@@ -3,7 +3,7 @@ import {
   Component,
   EventEmitter,
   inject,
-  Input,
+  input,
   OnInit,
   Output,
 } from '@angular/core';
@@ -29,7 +29,8 @@ export class EditAssetFormComponent implements OnInit {
   private fb = inject(FormBuilder);
   private assetDetailsService = inject(AssetDetailsService);
 
-  @Input() public asset!: Asset;
+  public asset = input.required<Asset>();
+
   @Output() public update: EventEmitter<Asset> = new EventEmitter();
   @Output() public delete: EventEmitter<void> = new EventEmitter();
 
@@ -40,18 +41,18 @@ export class EditAssetFormComponent implements OnInit {
   protected assetDetails$: Observable<any> = of(null);
 
   ngOnInit() {
-    if (!this.asset) return;
-    this.form.patchValue({ quantity: this.asset.quantity });
+    if (!this.asset()) return;
+    this.form.patchValue({ quantity: this.asset().quantity });
     // Load asset details
     this.assetDetails$ = this.assetDetailsService.getAssetDetails$(
-      this.asset.categoryId,
-      this.asset.symbol
+      this.asset().categoryId,
+      this.asset().symbol
     );
   }
 
   onSubmit() {
     const updatedAsset: Asset = {
-      ...this.asset,
+      ...this.asset(),
       quantity: this.form.value.quantity,
     };
     this.update.emit(updatedAsset);

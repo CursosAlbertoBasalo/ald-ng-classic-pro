@@ -2,20 +2,21 @@ import {
   Component,
   ElementRef,
   EventEmitter,
-  Input,
   Output,
   ViewChild,
+  input,
 } from '@angular/core';
 import { debounceTime, filter, fromEvent, map, tap } from 'rxjs';
 
 @Component({
-    selector: 'lab-search',
-    templateUrl: './search.component.html',
-    styleUrls: ['./search.component.css'],
-    standalone: true,
+  selector: 'lab-search',
+  templateUrl: './search.component.html',
+  styleUrls: ['./search.component.css'],
+  standalone: true,
 })
 export class SearchComponent {
-  @Input() initialTerm = '';
+  public initialTerm = input<string>('');
+
   @Output() search: EventEmitter<string> = new EventEmitter();
   @ViewChild('searchInput') searchInput!: ElementRef<HTMLInputElement>;
 

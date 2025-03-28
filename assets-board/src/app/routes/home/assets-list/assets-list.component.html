@@ -9,7 +9,7 @@
     </tr>
   </thead>
   <tbody>
-    @for (asset of assets; track asset) {
+    @for (asset of assets(); track asset) {
       <tr>
         <td>
           <a [routerLink]="['assets', 'edit', asset.symbol]">{{ asset.name }}</a>
