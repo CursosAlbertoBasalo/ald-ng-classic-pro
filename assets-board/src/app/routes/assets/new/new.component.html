@@ -1,12 +1,10 @@
 <lab-page title="New Asset" subtitle="Add a new asset">
   @if (categories$ | async; as categories) {
     @if (symbols$ | async; as symbols) {
-      <lab-new-asset-form
-        [categories]="categories"
+      <lab-new-asset-form [categories]="categories"
         [categoriesSymbols]="symbols"
         (save)="saveAsset($event)"
-        >
-      </lab-new-asset-form>
+         />
     }
   }
 </lab-page>

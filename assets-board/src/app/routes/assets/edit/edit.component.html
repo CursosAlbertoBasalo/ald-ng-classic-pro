@@ -1,9 +1,8 @@
 @if (asset$ | async; as asset) {
   <lab-page title="Edit Asset" [subtitle]="asset.name">
-    <lab-edit-asset-form
-      [asset]="asset"
+    <lab-edit-asset-form [asset]="asset"
       (update)="updateAsset($event)"
       (delete)="deleteAsset()"
-    ></lab-edit-asset-form>
+     />
   </lab-page>
 }

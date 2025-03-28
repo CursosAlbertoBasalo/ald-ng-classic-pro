@@ -4,7 +4,7 @@
   <p><strong>Category ID:</strong> {{ asset().categoryId }}</p>
   <p><strong>Value:</strong> {{ asset().value | currency }}</p>
 
-  <lab-details [details]="assetDetails$ | async"></lab-details>
+  <lab-details [details]="assetDetails$ | async" />
 </div>
 <form [formGroup]="form" (ngSubmit)="onSubmit()">
   <fieldset>

@@ -1,8 +1,7 @@
 <lab-page title="Symbols">
-  <lab-search
-    (search)="onSearch($event)"
+  <lab-search (search)="onSearch($event)"
     [initialTerm]="paramSearchTerm"
-  ></lab-search>
+   />
   @if (symbols$ | async; as symbols) {
     <ul aria-label="Symbols list">
       @for (symbol of symbols; track symbol) {
