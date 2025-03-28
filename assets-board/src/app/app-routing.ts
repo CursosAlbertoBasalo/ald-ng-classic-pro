@@ -1,4 +1,6 @@
 import { Routes } from '@angular/router';
+import { hasPowersGuard } from './core/has-powers.guard';
+import { ratesResolver } from './routes/rates/rates.resolver';
 
 export const APP_ROUTES: Routes = [
   {
@@ -13,6 +15,12 @@ export const APP_ROUTES: Routes = [
   },
   {
     path: 'symbols',
+    canActivate: [hasPowersGuard],
     loadComponent: () => import('./routes/symbols/symbols.component'),
+  },
+  {
+    path: 'rates',
+    resolve: { rates: ratesResolver },
+    loadComponent: () => import('./routes/rates/rates.component'),
   },
 ];

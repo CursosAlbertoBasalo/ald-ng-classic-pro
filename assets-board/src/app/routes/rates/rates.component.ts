@@ -1,20 +1,17 @@
-import { Component } from '@angular/core';
+import { DecimalPipe, KeyValuePipe } from '@angular/common';
+import { Component, inject } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Rates } from 'src/app/shared/rates.service';
+import { PageComponent } from 'src/app/shared/ui/page/page.component';
 
 @Component({
   selector: 'lab-rates',
+  standalone: true,
+  imports: [PageComponent, KeyValuePipe, DecimalPipe],
   templateUrl: './rates.component.html',
-  styleUrls: ['./rates.component.css']
+  styleUrls: ['./rates.component.css'],
 })
-export class RatesComponent {
-  protected rates!: Rates;
-
-  constructor(private route: ActivatedRoute) {}
-
-  ngOnInit() {
-    this.route.data.subscribe((data) => {
-      this.rates = data['rates'];
-    });
-  }
+export default class RatesComponent {
+  private route: ActivatedRoute = inject(ActivatedRoute);
+  protected rates: Rates = this.route.snapshot.data['rates'];
 }

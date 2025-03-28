@@ -1,23 +1,12 @@
-import { Injectable } from '@angular/core';
-import {
-  ActivatedRouteSnapshot,
-  Resolve,
-  RouterStateSnapshot
-} from '@angular/router';
-import { Observable, tap } from 'rxjs';
+import { inject } from '@angular/core';
+import { ResolveFn } from '@angular/router';
+import { tap } from 'rxjs';
 import { OpenExRatesRepository, Rates } from 'src/app/shared/rates.service';
 
-@Injectable({
-  providedIn: 'root'
-})
-export class RatesResolver implements Resolve<Rates> {
+export const ratesResolver: ResolveFn<Rates> = (route, state) => {
+  const ratesService = inject(OpenExRatesRepository);
 
-  constructor(private ratesService: OpenExRatesRepository) {}
-
-  resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<Rates> {
-    return this.ratesService.getRates$()
-      .pipe(
-        tap(() => console.log('Resolving rates')),
-      );
-  }
-}
+  return ratesService
+    .getRates$()
+    .pipe(tap(() => console.log('Resolving rates')));
+};
